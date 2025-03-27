@@ -1,0 +1,96 @@
+{
+  "name": "side-screen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A beautiful dashboard application for your secondary screen",
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "scripts": {
+    "dev": "concurrently \"vite\" \"wait-on tcp:5173 && cross-env NODE_ENV=development electron .\"",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron:dev": "cross-env NODE_ENV=development electron .",
+    "electron:build": "vite build && electron-builder --win portable",
+    "electron:build:optimized": "vite build && cross-env NODE_ENV=production electron-builder --win portable --config.extraMetadata.main=electron/main-optimized.js",
+    "electron:optimized": "cross-env NODE_ENV=production electron . --js-flags=\"--expose-gc\"",
+    "generate-icons": "electron-icon-builder --input=./build/icons/icon.png --output=build --flatten"
+  },
+  "main": "electron/main.js",
+  "dependencies": {
+    "@electron/remote": "^2.1.2",
+    "@types/crypto-js": "^4.2.2",
+    "axios": "^1.8.3",
+    "crypto-js": "^4.2.0",
+    "is-online": "^10.0.0",
+    "node-fetch": "^2.7.0",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@hapi/hoek": "^11.0.7",
+    "@types/electron": "^1.6.10",
+    "@types/node": "^22.13.10",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/compiler-dom": "^3.5.13",
+    "@vue/compiler-sfc": "^3.5.13",
+    "@vue/runtime-core": "^3.5.13",
+    "@vue/runtime-dom": "^3.5.13",
+    "@vue/shared": "^3.5.13",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^25.0.0",
+    "electron-builder": "^24.4.0",
+    "electron-icon-builder": "^2.0.1",
+    "esbuild": "^0.25.1",
+    "joi": "^17.13.3",
+    "rollup": "^4.36.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vue-tsc": "^1.8.5",
+    "wait-on": "^8.0.3"
+  },
+  "build": {
+    "appId": "com.sidescreen.app",
+    "productName": "SideScreen",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "loading.html",
+      "build/icons/*"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icons",
+        "to": "build/icons",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": "portable",
+      "compression": "maximum",
+      "icon": "build/icons/icon.ico"
+    },
+    "mac": {
+      "icon": "build/icons/icon.icns"
+    },
+    "linux": {
+      "icon": "build/icons/icon.png"
+    },
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/@electron/remote/**/*"
+    ],
+    "compression": "maximum",
+    "removePackageScripts": true,
+    "removePackageKeywords": true
+  }
+}

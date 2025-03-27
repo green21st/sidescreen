@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+    <!-- PIXI -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@6.5.2/dist/browser/pixi.min.js"></script>
+    <!-- Cubism Core and Runtime -->
+    <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <!-- Live2D Display -->
+    <script src="https://cdn.jsdelivr.net/npm/@pixi/math@6.5.2/dist/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pixi/core@6.5.2/dist/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pixi/display@6.5.2/dist/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pixi/utils@6.5.2/dist/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.3.1/dist/index.min.js"></script>
+    <script>
+      // 等待所有脚本加载完成
+      window.onload = () => {
+        try {
+          if (window.PIXI && window.PIXI.live2d) {
+            window.Live2DModel = PIXI.live2d.Live2DModel;
+            console.log('Live2D initialized successfully');
+          } else {
+            console.error('PIXI.live2d not found');
+          }
+        } catch (error) {
+          console.error('Error initializing Live2D:', error);
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

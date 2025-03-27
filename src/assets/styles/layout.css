@@ -1,0 +1,235 @@
+/* 基础布局样式 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  overflow: hidden;
+  color: var(--text-color);
+  height: 100vh;
+  width: 100vw;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.dashboard {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-image 0.5s ease-in-out;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.dashboard-container {
+  width: 95%;
+  height: 95%;
+  max-height: 95vh;
+  background-color: rgba(0, 0, 0, var(--container-opacity));
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+}
+
+.theme-light .dashboard-container {
+  background-color: rgba(255, 255, 255, var(--container-opacity));
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.theme-github .dashboard-container {
+  background-color: rgba(255, 255, 255, var(--container-opacity));
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.theme-nord .dashboard-container {
+  background-color: rgba(46, 52, 64, var(--container-opacity));
+}
+
+.theme-solarized .dashboard-container {
+  background-color: rgba(0, 43, 54, var(--container-opacity));
+}
+
+.theme-dracula .dashboard-container {
+  background-color: rgba(40, 42, 54, var(--container-opacity));
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  color: var(--text-color);
+  min-height: 60px;
+  flex-shrink: 0;
+}
+
+.dashboard-header h1 {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: normal;
+  font-style: italic;
+  max-width: 90%;
+  white-space: normal;
+  overflow: visible;
+  transition: all 0.5s ease;
+  line-height: 1.4;
+}
+
+.dashboard-header h1:hover {
+  white-space: normal;
+  overflow: visible;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: minmax(150px, auto);
+  gap: 15px;
+  flex: 1;
+  overflow: auto;
+  padding-right: 5px;
+  width: 100%;
+  height: calc(100% - 80px); /* 减去header的高度 */
+  padding-bottom: 15px;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .dashboard {
+    height: 100%;
+    position: fixed;
+  }
+  
+  .dashboard-container {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    padding: 10px;
+    border-radius: 0;
+  }
+  
+  .dashboard-content {
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(120px, auto);
+    gap: 10px;
+    padding-right: 0;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 1rem;
+    max-width: 70%;
+  }
+  
+  .widget {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+/* 竖屏模式特别处理 */
+@media (orientation: portrait) {
+  .dashboard {
+    height: 100%;
+    position: fixed;
+  }
+  
+  .dashboard-container {
+    width: 95%;
+    height: 95%;
+    max-height: none;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px auto;
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-right: 0;
+    overflow-y: auto;
+    padding-bottom: 10px;
+    height: calc(100% - 70px);
+    max-height: calc(100vh - 80px);
+    justify-content: space-between;
+  }
+  
+  .widget {
+    width: calc(33.333% - 10px); /* 宽度为容器的1/3减去间距 */
+    height: calc(50% - 15px); /* 高度为容器的一半减去间距 */
+    min-height: unset;
+    max-height: unset;
+    flex: none !important; /* 防止flex布局影响尺寸 */
+    overflow: auto;
+    box-sizing: border-box;
+    margin: 0 0 10px 0;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .dashboard-content {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+  }
+}
+
+@media (min-width: 1201px) {
+  .dashboard-content {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+  }
+}
+
+/* 横屏模式特别处理 */
+@media (orientation: landscape) {
+  .dashboard-container {
+    width: 95%;
+    height: 95%;
+    max-height: 95vh;
+    overflow: hidden;
+  }
+  
+  .dashboard-content {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: minmax(250px, auto);
+    gap: 15px;
+    height: calc(100% - 70px);
+    overflow-y: auto;
+    padding: 0 15px 15px 0;
+  }
+  
+  .widget {
+    min-height: 250px;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* 确保滚动条不会导致布局偏移 */
+  .dashboard-content {
+    scrollbar-gutter: stable;
+  }
+  
+  /* 优化滚动行为 */
+  .dashboard-content {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+} 
